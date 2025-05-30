@@ -12,15 +12,18 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void
+      public function run(): void
     {
-      
-
-        Tasks::factory(10)->create();
+     
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'password' => 'password',
         ]);
-         User::factory(9)->create();
+
+        User::factory(5)->has(
+            Tasks::factory(10)
+        )->create();
+
     }
 }
