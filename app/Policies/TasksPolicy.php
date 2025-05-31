@@ -21,8 +21,7 @@ class TasksPolicy
      */
     public function view(User $user, Tasks $tasks): bool
     {
-    
-        return $user->id === $tasks->user_id;
+        return false;
     }
 
     /**
@@ -38,8 +37,7 @@ class TasksPolicy
      */
     public function update(User $user, Tasks $tasks): bool
     {
-     
-        return $user->id === $tasks->user_id;
+        return false;
     }
 
     /**
@@ -63,6 +61,6 @@ class TasksPolicy
      */
     public function forceDelete(User $user, Tasks $tasks): bool
     {
-       return $user->id === $tasks->user_id;
-}
+        return false;
+    }
 }

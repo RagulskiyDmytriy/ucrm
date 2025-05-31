@@ -1,19 +1,13 @@
 <?php
 
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-require __DIR__ . '/api/v1.php';
-require __DIR__ . '/api/v2.php';
-
-
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
-
-Route::prefix('auth')->group(function (){
-    Route::post('/login', \App\Http\Controllers\Api\Auth\LoginController::class);
-    Route::post('/logout', \App\Http\Controllers\Api\Auth\LogoutController::class);
-    Route::post('/register', \App\Http\Controllers\Api\Auth\RegisterController::class);
+use App\Http\Controllers\Api\V1\DocsEmployeeController;
+Route::prefix('v1')->group(function (){
+   Route::get('/docs-employee', [\App\Http\Controllers\Api\V1\DocsEmployeeController::class, 'index']); 
+Route::post('/docs-employee', [\App\Http\Controllers\Api\V1\DocsEmployeeController::class, 'store']); 
+Route::get('docs-employee/{id}', [\App\Http\Controllers\Api\V1\DocsEmployeeController::class, 'show']); 
+Route::put('/docs-employee/{id}', [\App\Http\Controllers\Api\V1\DocsEmployeeController::class, 'update']);
+Route::delete('/docs-employee/{id}', [\App\Http\Controllers\Api\V1\DocsEmployeeController::class, 'destroy']);
+Route::patch('/docs-employee/{id}', [\App\Http\Controllers\Api\V1\DocsEmployeeController::class, 'complete']);
 });

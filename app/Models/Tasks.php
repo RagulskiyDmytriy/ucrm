@@ -10,10 +10,5 @@ class Tasks extends Model
     /** @use HasFactory<\Database\Factories\TasksFactory> */
     use HasFactory;
 
-    protected $fillable = ['name'];
-
-
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
+     protected $fillable = ['name'];
 }
