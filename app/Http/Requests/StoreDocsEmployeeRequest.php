@@ -11,13 +11,12 @@ class StoreDocsEmployeeRequest extends FormRequest
         return true;
     }
 
-    public function rules(): array
-    {
-        return [
-            'docs_id' => ['required', 'integer', 'exists:docs,docs_id'],
-            'employee_id' => ['required', 'integer', 'exists:employee,employee_id'],
-            'position_id' => ['nullable', 'integer'],
-            'signed' => ['required', 'boolean'],
-        ];
-    }
+  public function rules()
+{
+    return [
+        'docs_id' => ['required', 'integer'], // убрать exists
+        'employee_id' => ['required', 'integer'],
+        'signed' => ['required', 'boolean'],
+    ];
+}
 }

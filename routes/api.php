@@ -9,5 +9,5 @@ Route::post('/docs-employee', [\App\Http\Controllers\Api\V1\DocsEmployeeControll
 Route::get('docs-employee/{id}', [\App\Http\Controllers\Api\V1\DocsEmployeeController::class, 'show']); 
 Route::put('/docs-employee/{id}', [\App\Http\Controllers\Api\V1\DocsEmployeeController::class, 'update']);
 Route::delete('/docs-employee/{id}', [\App\Http\Controllers\Api\V1\DocsEmployeeController::class, 'destroy']);
-Route::patch('/docs-employee/{id}', [\App\Http\Controllers\Api\V1\DocsEmployeeController::class, 'complete']);
+Route::patch('/docs/employee/{id}', [\App\Http\Controllers\Api\V1\DocsEmployeeController::class, 'markSigned']);
 });

@@ -16,11 +16,37 @@ class DocsEmployeeController extends Controller
         return DocsEmployeeResource::collection(DocsEmployee::all());
     }
 
-    public function store(StoreDocsEmployeeRequest $request)
-    {
-        $record = DocsEmployee::create($request->validated());
-        return DocsEmployeeResource::make($record);
+   public function store(StoreDocsEmployeeRequest $request)
+{
+    $data = $request->validated();
+
+    // Попробовать найти или создать документ
+    $doc = \App\Models\DocsEmployee::firstOrCreate(['id' => $data['docs_id']]);
+
+    // Попробовать найти или создать сотрудника
+    $employee = \App\Models\DocsEmployee::firstOrCreate(['id' => $data['employee_id']]);
+
+    // Проверить, нет ли уже такой связи
+    $exists = DocsEmployee::where('docs_id', $doc->id)
+        ->where('employee_id', $employee->id)
+        ->exists();
+
+    if ($exists) {
+        return response()->json([
+            'message' => 'Такая запись уже существует (docs_id + employee_id)'
+        ], 409);
     }
+
+    // Создать связь
+    $record = DocsEmployee::create([
+        'docs_id' => $doc->id,
+        'employee_id' => $employee->id,
+        'signed' => $data['signed'],
+    ]);
+
+    return DocsEmployeeResource::make($record);
+}
+
 
     public function show($id)
     {

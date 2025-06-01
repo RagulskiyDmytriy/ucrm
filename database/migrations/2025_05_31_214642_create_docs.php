@@ -67,16 +67,18 @@ return new class extends Migration
             $table->foreign('priority_id')->references('priority_id')->on('priority'); // виправлено ім'я таблиці
         });
 
-        Schema::create('docs_employee', function (Blueprint $table) {
-            $table->unsignedBigInteger('docs_id');
-            $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('position_id')->nullable();
-            $table->boolean('signed')->default(0);
+    Schema::create('docs_employee', function (Blueprint $table) {
+    $table->id(); // добавит auto-increment поле id
+    $table->unsignedBigInteger('docs_id');
+    $table->unsignedBigInteger('employee_id');
+    $table->unsignedBigInteger('position_id')->nullable();
+    $table->boolean('signed')->default(0);
 
-            $table->primary(['docs_id', 'employee_id']);
-            $table->foreign('docs_id')->references('docs_id')->on('docs');
-            $table->foreign('employee_id')->references('employee_id')->on('employee');
-        });
+    $table->foreign('docs_id')->references('docs_id')->on('docs');
+    $table->foreign('employee_id')->references('employee_id')->on('employee');
+
+    $table->unique(['docs_id', 'employee_id']); // сохранить уникальность пары
+});
 
         Schema::create('docs_files', function (Blueprint $table) {
             $table->unsignedBigInteger('docs_id');
